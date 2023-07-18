@@ -1,0 +1,40 @@
+
+<app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="container">
+  <div class="events">
+    <h2>Liste des événements</h2>
+    
+  </div>
+
+  <div class="panier" style="margin-left: 80%; position: fixed;">
+    <h2>Vos événements </h2>
+    <ul>
+      <li *ngFor="let item of panier">
+        <span class="event-nom">{{ item.nomEvenement }}</span>
+        <button class="btn-supprimer" (click)="supprimerDuPanier(item)"><i class="fas fa-times"></i></button>
+      </li>
+    </ul>
+    <a class="btn btn" (click)="confirmer(item)">Confirmer</a>
+  </div>
+</div>
+
+
+<div class="container">
+<div  *ngFor="let event of events">
+<div class="card m-2" style="width: 300px;">
+  <img class="card-img-top" src="https://assets.codepen.io/6093409/mountains-1.jpg" alt="a snow-capped mountain range"/>
+  <div class="card-body">
+    <h2 class="card-title">{{ event.nomEvenement }}</h2>
+    <p class="card-text">Desc : {{ event.description }}</p>
+    <p class="card-text">Date : {{ event.dateEvenement }}</p>
+    <p class="card-text">Lieu : {{ event.place }}</p>
+
+    <a class="btn btn-secondary" (click)="ajouterAuPanier(event)">Participer</a>
+  </div>
+</div>
+</div>
+</div>
+
+<app-footer></app-footer>

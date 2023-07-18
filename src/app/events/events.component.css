@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    margin: 20px;
+  }
+  
+  .events {
+    flex-grow: 1;
+  }
+  
+  .panier {
+    width: 250px;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 20px;
+  }
+  
+  .panier h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .panier ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .panier li {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .panier .event-nom {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .panier .btn-supprimer {
+    border: none;
+    background-color: transparent;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .panier .btn-supprimer i {
+    font-size: 14px;
+  }
+  
+  .panier .btn-supprimer:hover {
+    color: #ff0000;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
