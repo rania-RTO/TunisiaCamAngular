@@ -1,38 +1,18 @@
 <app-navbar></app-navbar>
-<div class="container">
-    <h2 class="text-center">Ajouter un événement</h2>
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <form (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="nomEvenement">Nom de l'événement:</label>
-            <input type="text" class="form-control" id="nomEvenement" [(ngModel)]="nomEvenement" name="nomEvenement" required>
+<div class='container-fluid'>
+  <div class="card mx-auto col-md-3 col-10 mt-5">
+      <img class='mx-auto img-thumbnail'
+          src="https://picsum.photos/1000/1000"/>
+      <div class="card-body text-center mx-auto">
+          <div class='cvp'>
+              <h5 class="card-title font-weight-bold">{{event.nomEvenement}}</h5>
+              <p class="card-text">This campsite is in {{event.place}}</p>
+              <p class="card-text">{{event.nbPlace}} places left</p>
+            
+              <p class="card-text">{{event.dateEvenement}} places left</p>
+              <a routerLink="/listcampsites" class="btn cart px-auto">RETURN TO CAMPSITES</a>
           </div>
-  
-          <div class="form-group">
-            <label for="description">Description:</label>
-            <input type="text" class="form-control" id="description" [(ngModel)]="description" name="description" required>
-          </div>
-  
-          <div class="form-group">
-            <label for="place">Lieu:</label>
-            <input type="text" class="form-control" id="place" [(ngModel)]="place" name="place" required>
-          </div>
-          <div class="form-group">
-            <label for="nbpersonne">Nombre des personnes:</label>
-            <input type="number" class="form-control" id="nbpersonne" [(ngModel)]="nbpersonne" name="nbpersonne" required>
-          </div>
-  
-          <div class="form-group">
-            <label for="dateEvenement">Date de l'événement:</label>
-            <input type="date" class="form-control" id="dateEvenement" [(ngModel)]="dateEvenement" name="dateEvenement" required>
-          </div>
-  
-          <button type="submit" class="btn btn-primary">Ajouter événement</button>
-        </form>
       </div>
-    </div>
   </div>
-  
 
-  <app-footer></app-footer>
+</div>

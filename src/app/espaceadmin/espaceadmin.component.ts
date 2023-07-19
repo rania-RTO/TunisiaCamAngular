@@ -1,7 +1,12 @@
   import { HttpClient } from '@angular/common/http';
   import { Component, OnInit } from '@angular/core';
   import { PopupService } from '../service/popup.service';
-import { log } from 'console';
+
+import { ElementRef } from '@angular/core';
+import { CrudService } from '../service/crud.service';
+import { event } from '../model/event';
+import { Router } from '@angular/router';
+
 
   @Component({
     selector: 'app-espaceadmin',
@@ -9,51 +14,100 @@ import { log } from 'console';
     styleUrls: ['./espaceadmin.component.css']
   })
   export class EspaceadminComponent implements OnInit {
-    events!: any[];
+
+    events!: event[];
+
+ 
+     event: event= new event();
   
+
+    myModal: HTMLElement | undefined;
+
     msg !: string;
     ide!: number;
-    id!: number;
-    nomEvenement!: string;
-    description!: string;
-    place!: string;
-    dateEvenement!: string;
 
 
     public isPopupOpen !: boolean; 
     
-    constructor(private http: HttpClient, private popupService: PopupService) { }
+    constructor(private http: HttpClient, private crudService : CrudService, private elementRef: ElementRef,  private router: Router) { }
 
     ngOnInit(): void {
-      this.getEvents();
+      this.crudService.getevents().subscribe(
+        (data: event[]) => this.events = data)
       console.log(this.isPopupOpen);
       
     }
 
+    addEvent(id: number) {
+      this.crudService.id = id;
+      this.router.navigate(['/addEvent/' + id]);
+    }
+
+    
+    /*
     openPopup(ide: number): void {
       this.isPopupOpen = true;
-      this.ide=ide;
-      console.log(ide);
-      console.log(this.isPopupOpen);
-
-    }
+      this.ide = ide;
+    this.crudService.getevent(ide)
     
+      this.http.get<any>(`http://localhost:8040/events/${ide}`).subscribe(
+        response => {
+          // Assigner les valeurs récupérées aux variables
+          this.nomEvenement = response.nomEvenement;
+          this.description = response.description;
+          this.place = response.place;
+          this.dateEvenement = response.dateEvenement;
+        },
+        error => {
+          console.log("Une erreur s'est produite lors de la récupération des détails de l'événement :", error);
+        }
+      );
+    }
+    */
+
+    update(e: event) {
+      this.crudService.updateEvent(e).subscribe(
+        (data:event) => {
+          this.event = data;
+          console.log('Données du campsite :', this.event);
+        },
+        error => {
+          console.error('Erreur lors de la récupération des données du campsite :', error);
+        }
+      );
+    }
+  
+    
+    updating(event : event) {
+      if (confirm('Are you sure you want to update ' + event.nomEvenement + ' ?')) {
+        this.crudService.updateEvent(event).subscribe(
+          (event : event) => {
+            alert('Campsite updated successfully');
+            this.crudService.getevents().subscribe(
+              (data:event[]) => this.events = data)
+          },
+          error => {
+            console.error('Erreur lors de la mise à jour du evenement :', error);
+  
+          }
+        );
+      }
+    }
+
     closePopup(): void {
       this.isPopupOpen = false;
+      this.getEvents();
     }
+
+
+
+
+
 
 
     getEvents() {
       console.log('test');
-      this.http.get<any[]>('http://localhost:8040/events').subscribe(
-        response => {
-          this.events = response;
-          console.log(this.events);
-        },
-        error => {
-          console.log('Une erreur s\'est produite lors de la récupération des événements:', error);
-        }
-      );
+      this.crudService.getevents();
     }
 
     supprimerEvenement(eventId: number): void {
@@ -62,24 +116,11 @@ import { log } from 'console';
         console.error("Veuillez entrer l'ID de l'événement à supprimer.");
         return;
       }
-    
-      const url = `http://localhost:8040/delete_event/${eventId}`;
-    
-      this.http.post(url, null).subscribe(
-        () => {
-          console.log("Événement supprimé avec succès.");
-          this.msg = "Événement supprimé avec succès.";
-          this.getEvents();
-        },
-        error => {
-          console.error("Une erreur s'est produite lors de la suppression de l'événement :", error);
-          this.msg = "Une erreur s'est produite lors de la suppression de l'événement :";
-        }
-        
-      );
+     this.crudService.deleteEvent(eventId);
+     console.log("done");
     }
 
-
+/*
     modifierEvenement(): void {
       if (!this.ide) {
         console.error(this.ide);
@@ -111,6 +152,6 @@ import { log } from 'console';
           }
         );
     }
-    
-
+    */
+  
   }

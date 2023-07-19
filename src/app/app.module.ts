@@ -11,6 +11,8 @@ import { UpdateEventComponent } from './update-event/update-event.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EspaceadminComponent } from './espaceadmin/espaceadmin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { EspaceadminComponent } from './espaceadmin/espaceadmin.component';
     UpdateEventComponent,
     FooterComponent,
     NavbarComponent,
-    EspaceadminComponent
+    EspaceadminComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

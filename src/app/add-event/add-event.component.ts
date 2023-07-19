@@ -1,35 +1,40 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CrudService } from '../service/crud.service';
+import { event } from '../model/event';
+
+
 
 @Component({
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.css']
 })
+
+
+
 export class AddEventComponent {
-  nomEvenement!: string;
-  description!: string;
-  place!: string;
-  nbpersonne!: number;
-  dateEvenement!: string;
 
-  constructor(private http: HttpClient) {}
+  id: number = 0;
+  event: event= new event();
+ 
+  constructor(private router: Router, private crudService : CrudService) {}
 
-  onSubmit() {
-    const event = {
-      nomEvenement: this.nomEvenement,
-      description: this.description,
-      place: this.place,
-      nbpersonne: this.nbpersonne,
-      dateEvenement: this.dateEvenement
-    };
 
-    this.http.post('http://localhost:8040/add_event', event)
-      .subscribe(response => {
-        console.log('Événement ajouté avec succès:', response);
-        // Vous pouvez effectuer d'autres actions ici après l'ajout de l'événement
-      }, error => {
-        console.error('Une erreur s\'est produite lors de l\'ajout de l\'événement:', error);
-      });
-  }
+  ngOnInit() {
+    this.id = this.crudService.id;
+    this.crudService.getEventById(this.id).subscribe(
+      (data: event) => {console.log(data);
+        this.event = data;
+      
+      })
+
+
+
+
+
+      
+    }
+
 }

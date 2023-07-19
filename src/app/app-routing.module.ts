@@ -7,15 +7,17 @@ import { UpdateEventComponent } from './update-event/update-event.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EspaceadminComponent } from './espaceadmin/espaceadmin.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
    {path:'events',component : EventsComponent},
-   {path:'addevents',component : AddEventComponent},
+   {path:'addEvent/:id',component : AddEventComponent},
    {path:'deleteevent',component : DeleteEventComponent},
    {path:'updateevent',component : UpdateEventComponent},
    {path:'footer',component : FooterComponent},
    {path:'navbar',component : NavbarComponent},
-   {path:'espaceadmin',component : EspaceadminComponent}
+   {path:'espaceadmin',component : EspaceadminComponent},
+   {path:'home',component:HomepageComponent},
 ];
 
 @NgModule({

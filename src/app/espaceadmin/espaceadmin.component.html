@@ -70,20 +70,26 @@
                   {{e.dateEvenement}}
                 </td>
                 <td class="text-center">
-                  <span class="label label-default">{{e.nbplace}}</span>
+                  <span class="label label-default">{{e.nbPlace}}</span>
                 </td>
                 <td>
                   <a>{{e.place}}</a>
                 </td>
                 <td style="width: 20%;">
+                  <a (click)="addEvent(e.idEvenement)" class="table-link">
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
 
-                  
-                  <a class="table-link" (click)="openPopup(e.idEvenement)"  >
+                  <a class="table-link" data-bs-target="#staticBackdrop" data-bs-toggle="modal" (click)="update(e)">
                     <span class="fa-stack">
                       <i class="fa fa-square fa-stack-2x"></i>
                       <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                     </span>
                   </a>
+
                   <a class="table-link danger" (click)="supprimerEvenement(e.idEvenement)">
                     <span class="fa-stack">
                       <i class="fa fa-square fa-stack-2x"></i>
@@ -96,6 +102,7 @@
             </tbody>
           </table>
         </div>
+
         <ul class="pagination pull-right">
           <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
           <li><a href="#">1</a></li>
@@ -109,13 +116,76 @@
 </div>
 
 
-<div class="popup" *ngIf="isPopupOpen">
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="staticBackdropLabel">Update Campsite</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm">
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-map-marker"></i> </span>
+            </div>
+            <input name="campsite.name" class="form-control" placeholder="Name" type="text" name="name"
+              [(ngModel)]="event.nomEvenement" #name="ngModel" required>
+
+          </div>
+          <div class="alert alert-danger" *ngIf="name.invalid && name.touched">
+            <div *ngIf="name.errors?.['required']">name is required!</div>
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-crosshairs"></i> </span>
+            </div>
+            <input name="campsite.location" class="form-control" placeholder="Location" type="text" name="location"
+              [(ngModel)]="event.place" #place="ngModel" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="place.invalid && place.touched">
+            <div *ngIf="place.errors?.['required']">location is required!</div>
+          </div>
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-users"></i> </span>
+            </div>
+            <input class="form-control" placeholder="Number of free places" type="number" name="campsite.nbrPlace"
+              name="nbrPlace" [(ngModel)]="event.nbPlace" #nbrPlace="ngModel" required min="0">
+          </div>
+          <div class="alert alert-danger" *ngIf="nbrPlace.invalid && nbrPlace.touched">
+            <div *ngIf="nbrPlace.errors?.['required']">nbrPlace is required!</div>
+            <div *ngIf="nbrPlace.errors?.['min']">nbrPlace must be positive!</div>
+          </div>
+
+
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block" (click)="updating(event)">
+              Update Camping Site
+            </button>
+            <button type="button" class="btn btn-light  btn-block" data-bs-dismiss="modal"
+              aria-label="Close">Cancel</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--<div class="popup" *ngIf="isPopupOpen">
 
  
   <div class="row justify-content-center">
     <div class="design">
       <form (ngSubmit)="modifierEvenement()">
-        <h1 class="text-center">Modifier un événement</h1>
         <div class="form-group">
           <label>Nom de l'événement :</label>
           <input type="text" [(ngModel)]="nomEvenement" name="nomEvenement" class="form-control" required>
@@ -132,21 +202,10 @@
           <label>Date de l'événement :</label>
           <input type="date" [(ngModel)]="dateEvenement" name="dateEvenement" class="form-control" required>
         </div>
-        
         <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
-     
-    </div>
-  </div>
-  <button type="button"  class="btn1" (click)="closePopup()">X</button>
+    
+      <button type="button" class="btn1" (click)="closePopup()">X</button>
 </div>
 
-
-
-
-
-
-
-
-
-
+-->
