@@ -1,4 +1,6 @@
 
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark"
     style="min-height: 100vh; background-size: cover; background-image: url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1920&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=c0d43804e2c7c93143fe8ff65398c8e9);">
     <div class="container-fluid">
@@ -6,28 +8,35 @@
             <div class="col-12 col-md-4 col-lg-3   h-50 ">
                 <div class="card shadow">
                     <div class="card-body mx-auto">
-                        <h4 class="card-title mt-3 text-center">Add new camping Site</h4>
-                        <p class="text-center">Fill informations below to add a new camping site</p>
+                        <h4 class="card-title mt-3 text-center">Add new event</h4>
+                        <p class="text-center">Fill informations below to add a new event</p>
                         <form #f="ngForm" (ngSubmit)="add()">
                             <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-map"></i> </span>
-                                </div>
+                               
                                 <input name="event.nomEvenement" class="form-control" placeholder="nomEvenement" type="text"
-                                name="nomEvenement" [(ngModel)]="event.nomEvenement" #nomEvenement="ngModel" required>
+                                    name="nomEvenement" [(ngModel)]="event.nomEvenement" #nomEvenement="ngModel" required>
 
                             </div>
                             <div class="alert alert-danger" *ngIf="nomEvenement.invalid && nomEvenement.touched">
                                 <div *ngIf="nomEvenement.errors?.['required']">name is required!</div>
                             </div>
 
-
-
                             
                             <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-crosshairs"></i> </span>
-                                </div>
+                               
+                                <input name="event.description" class="form-control" placeholder="description" type="text"
+                                    name="description" [(ngModel)]="event.description" #description="ngModel" required>
+
+                            </div>
+                            <div class="alert alert-danger" *ngIf="description.invalid && description.touched">
+                                <div *ngIf="description.errors?.['required']">description is required!</div>
+                            </div>
+
+
+
+
+                            <div class="form-group input-group">
+                               
                                 <input name="event.place" class="form-control" placeholder="place" type="text"
                                     name="place" [(ngModel)]="event.place" #place="ngModel" required>
                             </div>
@@ -35,12 +44,10 @@
                                 <div *ngIf="place.errors?.['required']">location is required!</div>
                             </div>
 
-
+                            
 
                             <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-users"></i> </span>
-                                </div>
+                               
                                 <input class="form-control" placeholder="Number of free places" type="number"
                                     name="event.nbplace" name="nbplace" [(ngModel)]="event.nbplace"
                                     #nbplace="ngModel" required min="0">
@@ -52,16 +59,14 @@
 
 
                             <div class="form-group input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text"> <i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                                </div>
+                               
                                 
                                 <input class="form-control"  name="event.dateEvenement"
                                 name="dateEvenement" type="date" [(ngModel)]="event.dateEvenement" name="dateEvenement"  required>
                               </div>
 
                               
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: 20px;">
                                 <button type="submit" class="btn btn-primary btn-block"> Create Camping Site </button>
                             </div>
 
