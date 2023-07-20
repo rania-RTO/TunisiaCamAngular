@@ -5,5 +5,5 @@ export class event {
     description!: string;
     place!: string;
     dateEvenement!: string;
-    nbPlace !: number ;
+    nbplace !: number ;
 }

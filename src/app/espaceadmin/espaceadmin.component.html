@@ -5,6 +5,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+
+
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
   <a class="navbar-brand" href="#">CampTunisia</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"
@@ -63,14 +65,14 @@
               <tr *ngFor="let e of events">
                 <td>
                   <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                  <a href="#" class="user-link">{{e.nomEvenement}}</a>
-                  <span class="user-subhead">Admin</span>
+                  <a (click)="addEvent(e.idEvenement)" class="user-link">{{e.nomEvenement}}</a>
+                 
                 </td>
                 <td>
                   {{e.dateEvenement}}
                 </td>
                 <td class="text-center">
-                  <span class="label label-default">{{e.nbPlace}}</span>
+                  <span class="label label-default">{{e.nbplace}}</span>
                 </td>
                 <td>
                   <a>{{e.place}}</a>
@@ -90,7 +92,7 @@
                     </span>
                   </a>
 
-                  <a class="table-link danger" (click)="supprimerEvenement(e.idEvenement)">
+                  <a class="table-link danger" (click)="supprimerEvenement(e)">
                     <span class="fa-stack">
                       <i class="fa fa-square fa-stack-2x"></i>
                       <i class="fa fa-trash-o fa-stack-1x fa-inverse"> </i>
@@ -103,13 +105,13 @@
           </table>
         </div>
 
-        <ul class="pagination pull-right">
-          <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-
-          <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-        </ul>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button type="button" class="btn btn-primary" (click)="add()">Add a new campsite</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -128,26 +130,42 @@
       </div>
       <div class="modal-body">
         <form #f="ngForm">
+
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input name="event.nomEvenement" class="form-control" placeholder="nomEvenement" type="text" nomEvenement="nomEvenement"
+              [(ngModel)]="event.nomEvenement" #nomEvenement="ngModel" required>
+
+          </div>
+
+
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-map-marker"></i> </span>
             </div>
-            <input name="campsite.name" class="form-control" placeholder="Name" type="text" name="name"
-              [(ngModel)]="event.nomEvenement" #name="ngModel" required>
+            <input name="event.place" class="form-control" placeholder="place" type="text" place="place"
+              [(ngModel)]="event.place" #place="ngModel" required>
 
           </div>
-          <div class="alert alert-danger" *ngIf="name.invalid && name.touched">
-            <div *ngIf="name.errors?.['required']">name is required!</div>
+
+
+
+          <div class="alert alert-danger" *ngIf="place.invalid && place.touched">
+            <div *ngIf="place.errors?.['required']">name is required!</div>
           </div>
           <div class="form-group input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text"> <i class="fa fa-crosshairs"></i> </span>
+              <span class="input-group-text"> <i class="fa fa-info" aria-hidden="true"></i> </span>
             </div>
-            <input name="campsite.location" class="form-control" placeholder="Location" type="text" name="location"
-              [(ngModel)]="event.place" #place="ngModel" required>
+            <input name="event.description" class="form-control" placeholder="description" type="text" name="description"
+              [(ngModel)]="event.description" #description="ngModel" required>
           </div>
-          <div class="alert alert-danger" *ngIf="place.invalid && place.touched">
-            <div *ngIf="place.errors?.['required']">location is required!</div>
+          <div class="alert alert-danger" *ngIf="description.invalid && description.touched">
+            <div *ngIf="description.errors?.['required']">description is required!</div>
           </div>
 
           <div class="form-group input-group">
@@ -155,18 +173,29 @@
               <span class="input-group-text"> <i class="fa fa-users"></i> </span>
             </div>
             <input class="form-control" placeholder="Number of free places" type="number" name="campsite.nbrPlace"
-              name="nbrPlace" [(ngModel)]="event.nbPlace" #nbrPlace="ngModel" required min="0">
+              name="nbrPlace" [(ngModel)]="event.nbplace" #nbplace="ngModel" required min="0">
           </div>
-          <div class="alert alert-danger" *ngIf="nbrPlace.invalid && nbrPlace.touched">
-            <div *ngIf="nbrPlace.errors?.['required']">nbrPlace is required!</div>
-            <div *ngIf="nbrPlace.errors?.['min']">nbrPlace must be positive!</div>
+
+          <div class="alert alert-danger" *ngIf="nbplace.invalid && nbplace.touched">
+            <div *ngIf="nbplace.errors?.['required']">nbrPlace is required!</div>
+            <div *ngIf="nbplace.errors?.['min']">nbrPlace must be positive!</div>
           </div>
+
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            </div>
+            
+            <input class="form-control"  name="event.dateEvenement"
+            name="dateEvenement" type="date" [(ngModel)]="event.dateEvenement" name="dateEvenement"  required>
+          </div>
+
 
 
 
           <div class="form-group">
             <button type="submit" class="btn btn-warning btn-block" (click)="updating(event)">
-              Update Camping Site
+              Update Event
             </button>
             <button type="button" class="btn btn-light  btn-block" data-bs-dismiss="modal"
               aria-label="Close">Cancel</button>

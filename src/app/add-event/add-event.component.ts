@@ -25,16 +25,10 @@ export class AddEventComponent {
   ngOnInit() {
     this.id = this.crudService.id;
     this.crudService.getEventById(this.id).subscribe(
-      (data: event) => {console.log(data);
+      (data: event) => {console.log(data.nbplace);
         this.event = data;
       
       })
-
-
-
-
-
-      
     }
 
 }

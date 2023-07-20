@@ -21,8 +21,7 @@ import { Router } from '@angular/router';
      event: event= new event();
   
 
-    myModal: HTMLElement | undefined;
-
+  
     msg !: string;
     ide!: number;
 
@@ -40,10 +39,10 @@ import { Router } from '@angular/router';
 
     addEvent(id: number) {
       this.crudService.id = id;
-      this.router.navigate(['/addEvent/' + id]);
+      this.router.navigate(['/details/' + id]);
     }
 
-    
+
     /*
     openPopup(ide: number): void {
       this.isPopupOpen = true;
@@ -100,7 +99,11 @@ import { Router } from '@angular/router';
     }
 
 
-
+  
+    add(){
+      this.router.navigate(['/adde']);
+    }
+  
 
 
 
@@ -110,15 +113,22 @@ import { Router } from '@angular/router';
       this.crudService.getevents();
     }
 
-    supprimerEvenement(eventId: number): void {
-      if (!eventId) {
-        console.log(eventId);
-        console.error("Veuillez entrer l'ID de l'événement à supprimer.");
-        return;
+    supprimerEvenement(e : event) {
+    if (confirm('Are you sure you want to delete ' + e.nomEvenement + ' ?')) {
+      this.crudService.deleteEvent(e).subscribe({
+        next: (val: any) => {
+          alert('Campsite deleted successfully');
+          this.crudService.getevents().subscribe(
+            (data: event[]) => this.events = data)
+
+        },
+        error: (err: any) => {
+          console.error(err);
+        }
       }
-     this.crudService.deleteEvent(eventId);
-     console.log("done");
+      );
     }
+  }
 
 /*
     modifierEvenement(): void {

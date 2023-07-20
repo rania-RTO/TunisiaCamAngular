@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { event } from '../model/event';
 import { Observable } from 'rxjs';
+import { panier } from '../model/panier';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ import { Observable } from 'rxjs';
 export class CrudService {
 
   url='http://localhost:8040';
+  panierId:number =1;
+
   id!: number;
 
+  private panier: event[] = [];
 
   constructor(private http:HttpClient) { }
 
@@ -24,6 +28,8 @@ export class CrudService {
     return this.http.get<event[]>(`${this.url}/events/${id}`);
   }
 
+
+
   getEventById(id1: number):Observable<event> {
     return this.http.get<event>((`${this.url}/events/${id1}`));
     
@@ -35,8 +41,8 @@ export class CrudService {
     return this.http.post<event>((`${this.url}/add_event`),e);
   }
 
-  deleteEvent(idEvenement : number){
-    return this.http.delete(`${this.url}/delete_event/${idEvenement}`);
+  deleteEvent(e : event){
+    return this.http.delete(`${this.url}/delete_event/${e.idEvenement}`);
   }
 
 
@@ -45,5 +51,21 @@ export class CrudService {
   }
 
 
+  getPanier(){
+    return this.http.get<panier[]>(`${this.url}/panier`);
+  }
+
+
+
+  ajouterEvenementAuPanier(panierId: number, e: event): Observable<panier> {
+    return this.http.post<panier>((`${this.url}/${panierId}/addEvent`), e);
+   
+  }
+
+
+
+  deleteE(idp: number, idE: number) {
+    return this.http.delete(`${this.url}/panier/${idp}/${idE}`);
+  }
 
 }

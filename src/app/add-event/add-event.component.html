@@ -5,12 +5,12 @@
           src="https://picsum.photos/1000/1000"/>
       <div class="card-body text-center mx-auto">
           <div class='cvp'>
-              <h5 class="card-title font-weight-bold">{{event.nomEvenement}}</h5>
-              <p class="card-text">This campsite is in {{event.place}}</p>
-              <p class="card-text">{{event.nbPlace}} places left</p>
-            
-              <p class="card-text">{{event.dateEvenement}} places left</p>
-              <a routerLink="/listcampsites" class="btn cart px-auto">RETURN TO CAMPSITES</a>
+              <h5 class="card-title font-weight-bold">You can assest to {{event.nomEvenement}}</h5>
+              <p class="card-text">This event is in {{event.place}}</p>
+              <p class="card-text">{{event.nbplace}} places left</p>
+              <p class="card-text">{{event.description}} </p>
+              <p class="card-text">It will be in : {{event.dateEvenement}}</p>
+              <a routerLink="/espaceadmin" class="btn cart px-auto">RETURN TO EVENTS</a>
           </div>
       </div>
   </div>

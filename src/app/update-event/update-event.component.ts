@@ -17,7 +17,7 @@ export class UpdateEventComponent {
   constructor(private http: HttpClient, public popupService: PopupService) {}
 
 
-  closePopup(): void {
+closePopup(): void {
     this.popupService.closePopup();
   }
   
