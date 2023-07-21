@@ -16,6 +16,9 @@
       <li>
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
+      <li>
+        <a class="nav-link" routerLink="/espaceadmin">Espace Admin</a>
+      </li>
       
     </ul>
 
@@ -49,8 +52,8 @@
             <tbody>
               <tr *ngFor="let e of events">
                 <td>
-                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                  <a (click)="addEvent(e.idEvenement)" class="user-link">{{e.nomEvenement}}</a>
+                  <i class="fa fa-fire" aria-hidden="true"><a (click)="addEvent(e.idEvenement)" class="user-link">{{e.nomEvenement}}</a></i>
+                  
                  
                 </td>
                 <td>

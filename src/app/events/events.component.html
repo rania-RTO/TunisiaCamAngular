@@ -15,88 +15,133 @@
 
 
 <div class="container">
-
-  <div class="events">
-
-    <a class="table-link" data-bs-target="#staticBackdrop" data-bs-toggle="modal" (click)="getPanier()">
-      <span class="fa-stack">
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
+  <div class="row">
+    <div class="events">
+      <a class="table-link" data-bs-target="#staticBackdrop" data-bs-toggle="modal" (click)="getPanier()"
+        [attr.data-count]="countEventsInPanier()">
+        <span class="fa-stack">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+        </span>
+      </a>
+    </div>
   </div>
 
 
- 
-  
-
-
-
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title" id="staticBackdropLabel">Your events</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="panier">
-
-              <div *ngFor="let p of panier" class="panier">
-
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Nom de l'événement</th>
-                      <th>Lieu</th>
-                      <th>Date de l'événement</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let e of p.events" class="event">
-                      <td>{{ e.nomEvenement }}</td>
-                      <td>{{ e.place }}</td>
-                      <td>{{ e.dateEvenement }}</td>
-
-                      <td> <a class="table-link danger" (click)="deleteEv(1,e.idEvenement)">
-                          <span class="fa-stack">
-                            <i class="fa fa-square fa-stack-2x"></i>
-                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"> </i>
-                          </span>
-                        </a>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-            </div>
-          </div>
-          <div class="form-group">
-
-            <button type="button" class="btn btn-light  btn-block" data-bs-dismiss="modal"
-              aria-label="Close">Cancel</button>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-
+  <section id="pricing" class="pricing-content section-padding">
     <div class="container">
       <div *ngFor="let event of events">
-        <div class="card m-2" style="width: 300px;">
-          <img class="card-img-top" src="https://assets.codepen.io/6093409/mountains-1.jpg"
-            alt="a snow-capped mountain range" />
+
+        <div data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
+
+          <div class="single-pricing" style="background-color: rgba(41, 71, 145, 0.095); margin-top: 30px; box-shadow: 4px 4px 8px rgba(85, 92, 16, 0.2); ">
+            <div class="price-head">
+              <h2>{{ event.nomEvenement }}</h2>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <h1 class="price"> {{ event.place }}</h1>
+            <h5>{{ event.dateEvenement }}</h5>
+            <ul>
+              <li><i class="fa fa-users" aria-hidden="true"></i> {{ event.nbplace }}
+                place</li>
+              <li>{{ event.description }}</li>
+
+            </ul>
+            <a (click)="ajouterEvenementAuPanier(1,event)">Join Us</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!--- END COL -->
+  </section>
+
+
+
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">Your events</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="panier">
+
+            <div *ngFor="let p of panier" class="panier">
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nom de l'événement</th>
+                    <th>Lieu</th>
+                    <th>Date de l'événement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of p.events" class="event">
+                    <td>{{ e.nomEvenement }}</td>
+                    <td>{{ e.place }}</td>
+                    <td>{{ e.dateEvenement }}</td>
+
+                    <td> <a class="table-link danger" (click)="deleteEv(1,e.idEvenement,e)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <div class="form-group">
+
+
+          <button type="button" class="btn btn-light  btn-block" data-bs-dismiss="modal"
+            aria-label="Close">Cancel</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card" style="background-color: darkgoldenrod;" >
           <div class="card-body">
-            <h2 class="card-title">{{ event.nomEvenement }}</h2>
-            <p class="card-text">Desc : {{ event.description }}</p>
-            <p class="card-text">Date : {{ event.dateEvenement }}</p>
-            <p class="card-text">Lieu : {{ event.place }}</p>
-
-
-            <a class="btn btn-secondary" (click)="ajouterEvenementAuPanier(1,event)">Participer</a>
+            <h5 class="card-title">Total Events</h5>
+            <h2>{{ totalEvents }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" >
+        <div class="card" style="background-color: rgba(184, 135, 11, 0.708);">
+          <div class="card-body">
+            <h5 class="card-title"  >Upcoming Events</h5>
+            <h2>{{ upcomingEvents }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="background-color: rgba(179, 141, 47, 0.233);">
+          <div class="card-body">
+            <h5 class="card-title" >Past Events</h5>
+            <h2>{{ pastEvents }}</h2>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  
+
+</div>
